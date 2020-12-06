@@ -8,13 +8,13 @@ function H = proxr( Hb, ops, d)
             H = ProjectOntoSimplex(Hb', 1);
             H = H';
         case 'l1'
-            H = sign( Hb ) .* max( 0, abs(Hb) - (ops.l1{d}/rho) );
+            H = sign( Hb ) .* max( 0, abs(Hb) - (ops.l1{d}/ops.rho) );
         case 'l1n'
-            H = max( 0, Hb - ops.l1{d}/rho );
+            H = max( 0, Hb - ops.l1{d}/ops.rho );
         case 'l2'
-            H = ( rho/(ops.l2{d}+rho) ) * Hb;
+            H = ( ops.rho/(ops.l2{d}+ops.rho) ) * Hb;
         case 'l2n'
-            H = ( rho/(ops.l2{d}+rho) ) * max(0,Hb);
+            H = ( ops.rho/(ops.l2{d}+ops.rho) ) * max(0,Hb);
         case 'l2-bound'
            nn = sqrt( sum( Hb.^2 ) );
             H = Hb * diag( 1./ max(1,nn) );
